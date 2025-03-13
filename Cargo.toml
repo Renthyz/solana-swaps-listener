@@ -1,0 +1,27 @@
+[package]
+name = "transactions-listener"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "*" }
+tonic = { version = "*" }
+yellowstone-grpc-client = { version = "5.0.0" }
+yellowstone-grpc-proto = { version = "5.0.0" }
+
+solana-account-decoder = "=2.1.14"
+solana-client = "=2.1.14"
+solana-sdk = "=2.1.14"
+solana-transaction-status = "=2.1.14"
+spl-associated-token-account = "*"
+spl-token = "*"
+spl-token-2022 = "7.0.0"
+
+carbon-raydium-amm-v4-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-core = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-pumpfun-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-yellowstone-grpc-datasource = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-token-2022-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-raydium-cpmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-raydium-clmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-meteora-dlmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
