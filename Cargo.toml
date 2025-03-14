@@ -5,6 +5,9 @@ edition = "2024"
 
 [dependencies]
 tokio = { version = "*" }
+tracing = { version = "*", features = ["attributes"] }
+tracing-subscriber = { version = "*", features = ["env-filter"] }
+
 tonic = { version = "*" }
 yellowstone-grpc-client = { version = "5.0.0" }
 yellowstone-grpc-proto = { version = "5.0.0" }
@@ -17,11 +20,11 @@ spl-associated-token-account = "*"
 spl-token = "*"
 spl-token-2022 = "7.0.0"
 
-carbon-raydium-amm-v4-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
-carbon-core = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
-carbon-pumpfun-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
-carbon-yellowstone-grpc-datasource = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
-carbon-token-2022-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
-carbon-raydium-cpmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
-carbon-raydium-clmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
-carbon-meteora-dlmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.5.1" }
+carbon-raydium-amm-v4-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-core = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-pumpfun-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-yellowstone-grpc-datasource = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-token-2022-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-raydium-cpmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-raydium-clmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-meteora-dlmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }

@@ -1,37 +1,40 @@
 use solana_sdk::{pubkey::Pubkey, signature::Signature};
 
+#[derive(Debug, Clone)]
 pub struct Event {
     pub signature: Signature,
     pub event_type: EventType,
+    pub user: Pubkey,
     pub timestamp: u64,
 }
 
+#[derive(Debug, Clone)]
 pub enum EventType {
     Swap(Swap),
     PoolCreation {
         mint: Pubkey,
-        user: Pubkey,
         platform: SwapPlatform,
     },
     AssociatedTokenCreation {
         mint: Pubkey,
-        user: Pubkey,
     },
 }
 
 #[derive(Debug, Clone)]
 pub struct Swap {
-    pub mint: Pubkey,
-    pub user: Pubkey,
-    pub is_buy: bool,
-    pub sol_amount: u64,
-    pub token_amount: u64,
-    pub token_decimals: u8,
+    pub token_in_amount: u64,
+    pub token_in_decimals: u8,
+    pub token_in_mint: Pubkey,
+
+    pub token_out_amount: u64,
+    pub token_out_decimals: u8,
+    pub token_out_mint: Pubkey,
+
     pub platform: SwapPlatform,
     /// Including decimals
-    pub token_reserve: f64,
+    pub token_in_reserve: f64,
     /// Including decimals
-    pub sol_reserve: f64,
+    pub token_out_reserve: f64,
 }
 
 #[derive(Debug, Clone)]
