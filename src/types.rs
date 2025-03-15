@@ -16,8 +16,10 @@ pub enum EventType {
         mint: Pubkey,
         platform: SwapPlatform,
     },
-    AssociatedTokenCreation {
+    AssociatedAccountCreation {
         mint: Pubkey,
+        account: Pubkey,
+        idempotent: bool,
     },
 }
 

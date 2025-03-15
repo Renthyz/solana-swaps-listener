@@ -848,6 +848,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "carbon-spl-associated-token-account-decoder"
+version = "0.6.0"
+source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+dependencies = [
+ "carbon-core",
+ "carbon-macros",
+ "carbon-proc-macros",
+ "serde",
+ "solana-sdk",
+]
+
+[[package]]
 name = "carbon-token-2022-decoder"
 version = "0.6.0"
 source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
@@ -6250,6 +6262,7 @@ dependencies = [
  "carbon-raydium-amm-v4-decoder",
  "carbon-raydium-clmm-decoder",
  "carbon-raydium-cpmm-decoder",
+ "carbon-spl-associated-token-account-decoder",
  "carbon-token-2022-decoder",
  "carbon-yellowstone-grpc-datasource",
  "solana-account-decoder",

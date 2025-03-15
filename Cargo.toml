@@ -30,3 +30,4 @@ carbon-token-2022-decoder = { git = "https://github.com/sevenlabs-hq/carbon", ta
 carbon-raydium-cpmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
 carbon-raydium-clmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
 carbon-meteora-dlmm-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
+carbon-spl-associated-token-account-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }

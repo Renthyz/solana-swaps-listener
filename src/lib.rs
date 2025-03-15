@@ -19,6 +19,7 @@ use yellowstone_grpc_proto::geyser::SubscribeRequestFilterTransactions;
 
 use crate::{constants::programs::*, prelude::*, types::*};
 
+pub mod ata;
 pub(crate) mod constants;
 pub(crate) mod prelude;
 pub mod pumpfun;
