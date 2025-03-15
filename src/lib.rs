@@ -5,6 +5,7 @@ use std::{
 
 use carbon_core::pipeline::Pipeline;
 use carbon_pumpfun_decoder::PumpfunDecoder;
+use carbon_raydium_cpmm_decoder::RaydiumCpmmDecoder;
 use carbon_yellowstone_grpc_datasource::YellowstoneGrpcGeyserClient;
 use strum::IntoEnumIterator;
 use tokio::{
@@ -14,6 +15,7 @@ use tokio::{
     },
     task::JoinHandle,
 };
+use tokio_util::sync::CancellationToken;
 use types::Event;
 use yellowstone_grpc_proto::geyser::SubscribeRequestFilterTransactions;
 
@@ -31,7 +33,7 @@ pub(crate) mod utils;
 pub struct TransactionsListener {
     pub sender: Sender<Event>,
     pub grpc_urls: HashMap<String, (String, Option<String>)>,
-    pub pipeline_thread: Option<JoinHandle<CarbonResult<()>>>,
+    pub pipeline_thread: Option<(CancellationToken, JoinHandle<CarbonResult<()>>)>,
     pub events_cache: HashMap<String, Arc<RwLock<HashSet<Event>>>>,
 }
 
@@ -62,8 +64,13 @@ impl TransactionsListener {
         ))
     }
 
-    pub fn get_pipeline(&self, sender: Sender<Event>) -> CarbonResult<Pipeline> {
+    pub fn get_pipeline(
+        &self,
+        sender: Sender<Event>,
+    ) -> CarbonResult<(CancellationToken, Pipeline)> {
+        let cancellation_token = CancellationToken::new();
         let mut pipeline = carbon_core::pipeline::Pipeline::builder()
+            .datasource_cancellation_token(cancellation_token.clone())
             .shutdown_strategy(carbon_core::pipeline::ShutdownStrategy::Immediate)
             .instruction(
                 PumpfunDecoder,
@@ -72,6 +79,17 @@ impl TransactionsListener {
                     parsed_events: self
                         .events_cache
                         .get(&SwapPlatform::PumpFun.to_string())
+                        .unwrap()
+                        .clone(),
+                },
+            )
+            .instruction(
+                RaydiumCpmmDecoder,
+                raydium_cpmm::RaydiumCpmmMonitor {
+                    sender: sender.clone(),
+                    parsed_events: self
+                        .events_cache
+                        .get(&SwapPlatform::RaydiumCpmm.to_string())
                         .unwrap()
                         .clone(),
                 },
@@ -110,28 +128,39 @@ impl TransactionsListener {
             pipeline = pipeline.datasource(client);
         }
 
-        pipeline
-            .build()
-            .map_err(|error| Error::Custom(format!("build pipeline: {}", error)))
+        Ok((
+            cancellation_token,
+            pipeline
+                .build()
+                .map_err(|error| Error::Custom(format!("build pipeline: {}", error)))?,
+        ))
     }
 
-    pub fn get_pipeline_thread(&self) -> CarbonResult<JoinHandle<CarbonResult<()>>> {
-        let mut pipeline = self.get_pipeline(self.sender.clone())?;
-        Ok(tokio::spawn(async move { pipeline.run().await }))
+    pub fn get_pipeline_thread(
+        &self,
+    ) -> CarbonResult<(CancellationToken, JoinHandle<CarbonResult<()>>)> {
+        let (cancellation_token, mut pipeline) = self.get_pipeline(self.sender.clone())?;
+        Ok((
+            cancellation_token,
+            tokio::spawn(async move { pipeline.run().await }),
+        ))
     }
 
     pub fn run(&mut self) -> CarbonResult<()> {
         if self.pipeline_thread.is_some() {
             return Err(Error::Custom("pipeline thread already running".to_string()));
         }
+
         self.pipeline_thread = Some(self.get_pipeline_thread()?);
         Ok(())
     }
 
     pub fn stop(&mut self) {
-        if let Some(thread) = self.pipeline_thread.take() {
+        if let Some((cancellation_token, thread)) = self.pipeline_thread.take() {
+            cancellation_token.cancel();
             thread.abort();
         }
+
         self.pipeline_thread = None;
     }
 

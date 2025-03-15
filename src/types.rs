@@ -28,11 +28,9 @@ pub struct Swap {
     pub token_in_amount: u64,
     pub token_in_decimals: u8,
     pub token_in_mint: Pubkey,
-
     pub token_out_amount: u64,
     pub token_out_decimals: u8,
     pub token_out_mint: Pubkey,
-
     pub platform: SwapPlatform,
     /// Including decimals
     pub token_in_reserve: u64,

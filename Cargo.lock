@@ -364,9 +364,9 @@ dependencies = [
 
 [[package]]
 name = "async-compression"
-version = "0.4.20"
+version = "0.4.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "310c9bcae737a48ef5cdee3174184e6d548b292739ede61a1f955ef76a738861"
+checksum = "c0cf008e5e1a9e9e22a7d3c9a4992e21a350290069e36d8fb72304ed17e8f2d2"
 dependencies = [
  "brotli",
  "flate2",
@@ -411,9 +411,9 @@ dependencies = [
 
 [[package]]
 name = "async-trait"
-version = "0.1.87"
+version = "0.1.88"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d556ec1359574147ec0c4fc5eb525f3f23263a592b1a9c07e0a75b427de55c97"
+checksum = "e539d3fca749fcee5236ab05e93a52867dd549cc157c8cb7f99595f3cedffdb5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -742,7 +742,7 @@ dependencies = [
 [[package]]
 name = "carbon-core"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "async-trait",
  "borsh 0.10.4",
@@ -764,7 +764,7 @@ dependencies = [
 [[package]]
 name = "carbon-macros"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "hex",
  "paste",
@@ -776,7 +776,7 @@ dependencies = [
 [[package]]
 name = "carbon-meteora-dlmm-decoder"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "carbon-core",
  "serde",
@@ -787,7 +787,7 @@ dependencies = [
 [[package]]
 name = "carbon-proc-macros"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "borsh-derive-internal",
  "hex",
@@ -805,7 +805,7 @@ dependencies = [
 [[package]]
 name = "carbon-pumpfun-decoder"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "carbon-core",
  "serde",
@@ -815,7 +815,7 @@ dependencies = [
 [[package]]
 name = "carbon-raydium-amm-v4-decoder"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "carbon-core",
  "serde",
@@ -826,7 +826,7 @@ dependencies = [
 [[package]]
 name = "carbon-raydium-clmm-decoder"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "carbon-core",
  "carbon-macros",
@@ -838,7 +838,7 @@ dependencies = [
 [[package]]
 name = "carbon-raydium-cpmm-decoder"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "carbon-core",
  "carbon-macros",
@@ -850,7 +850,7 @@ dependencies = [
 [[package]]
 name = "carbon-spl-associated-token-account-decoder"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "carbon-core",
  "carbon-macros",
@@ -862,7 +862,7 @@ dependencies = [
 [[package]]
 name = "carbon-token-2022-decoder"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "carbon-core",
  "carbon-macros",
@@ -875,7 +875,7 @@ dependencies = [
 [[package]]
 name = "carbon-yellowstone-grpc-datasource"
 version = "0.6.0"
-source = "git+https://github.com/sevenlabs-hq/carbon?tag=v0.6.0#e47c3ea2499cfef18563bd80b31566deeac4a171"
+source = "git+https://github.com/sevenlabs-hq/carbon#4e7c612b43ad384a2acabbb026ffcd681653e901"
 dependencies = [
  "async-trait",
  "carbon-core",
@@ -2436,9 +2436,9 @@ dependencies = [
 
 [[package]]
 name = "linux-raw-sys"
-version = "0.9.2"
+version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6db9c683daf087dc577b7506e9695b3d556a9f3849903fa28186283afd6809e9"
+checksum = "fe7db12097d22ec582439daf8618b8fdd1a7bef6270e9af3b1ebcd30893cf413"
 
 [[package]]
 name = "litemap"
@@ -6275,6 +6275,7 @@ dependencies = [
  "strum",
  "strum_macros",
  "tokio",
+ "tokio-util",
  "tonic",
  "tracing",
  "tracing-subscriber",

@@ -32,6 +32,11 @@ impl Processor for RaydiumCpmmMonitor {
         let signature = metadata.transaction_metadata.signature;
         let now_timestamp = get_now_timestamp();
 
+        let status = metadata.transaction_metadata.meta.status;
+        if status.is_err() {
+            return Ok(());
+        }
+
         let event_type = match instruction.data {
             RaydiumCpmmInstruction::SwapBaseInput(_)
             | RaydiumCpmmInstruction::SwapBaseOutput(_) => {
@@ -200,9 +205,10 @@ impl Processor for RaydiumCpmmMonitor {
                     token_out_reserve,
                 })
             }
-            RaydiumCpmmInstruction::Initialize(_initialize) => {
-                todo!()
-            }
+            RaydiumCpmmInstruction::Initialize(_initialize) => EventType::PoolCreation {
+                mint: instruction.accounts[0].pubkey,
+                platform: SwapPlatform::RaydiumCpmm,
+            },
             _ => {
                 return Ok(());
             }
@@ -215,7 +221,7 @@ impl Processor for RaydiumCpmmMonitor {
             timestamp: now_timestamp,
         };
 
-        let parsed_events_cache = self.parsed_events.read().await;
+        let parsed_events_cache = self.parsed_events.read().await.clone();
         if parsed_events_cache.contains(&event) {
             return Ok(());
         }

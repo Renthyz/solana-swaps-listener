@@ -16,18 +16,25 @@ impl Processor for PumpFunMonitor {
 
     async fn process(
         &mut self,
-        data: Self::InputType,
+        (metadata, instruction, _nested_instructions): Self::InputType,
         _metrics: Arc<MetricsCollection>,
     ) -> CarbonResult<()> {
-        let signature = data.0.transaction_metadata.signature;
+        let signature = metadata.transaction_metadata.signature;
         let now_timestamp = get_now_timestamp();
-        let (event_type, user) = match data.1.data {
+        let (event_type, user) = match instruction.data {
             PumpfunInstruction::CreateEvent(create_event) => (
                 EventType::PoolCreation {
                     mint: create_event.mint,
                     platform: SwapPlatform::PumpFun,
                 },
                 create_event.user,
+            ),
+            PumpfunInstruction::Create(create) => (
+                EventType::PoolCreation {
+                    mint: instruction.accounts[0].pubkey,
+                    platform: SwapPlatform::PumpFun,
+                },
+                create.creator,
             ),
             PumpfunInstruction::TradeEvent(trade_event) => {
                 let (
@@ -96,11 +103,10 @@ impl Processor for PumpFunMonitor {
             timestamp: now_timestamp,
         };
 
-        let parsed_events_cache = self.parsed_events.read().await;
+        let parsed_events_cache = self.parsed_events.read().await.clone();
         if parsed_events_cache.contains(&event) {
             return Ok(());
         }
-
         self.parsed_events.write().await.insert(event.clone());
 
         self.sender
