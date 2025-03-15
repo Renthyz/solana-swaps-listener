@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use tracing::info;
 use tracing::level_filters::LevelFilter;
 use tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt};
-use transactions_listener::{SubscribeRequest, TransactionsListener};
+use transactions_listener::TransactionsListener;
 
 #[tokio::main]
 async fn main() {
@@ -31,15 +31,8 @@ async fn main() {
         map
     };
 
-    let (mut transactions_listener, mut events_receiver) = TransactionsListener::new(
-        128,
-        grpc_urls,
-        SubscribeRequest {
-            use_pumpfun: true,
-            ..Default::default()
-        },
-    )
-    .unwrap();
+    let (mut transactions_listener, mut events_receiver) =
+        TransactionsListener::new(128, 255, grpc_urls).unwrap();
 
     transactions_listener.run().unwrap();
     while let Some(event) = events_receiver.recv().await {

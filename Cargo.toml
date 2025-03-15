@@ -19,6 +19,8 @@ solana-transaction-status = "=2.1.14"
 spl-associated-token-account = "*"
 spl-token = "*"
 spl-token-2022 = "7.0.0"
+strum = { version = "*", features = ["derive"] }
+strum_macros = { version = "*" }
 
 carbon-raydium-amm-v4-decoder = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }
 carbon-core = { git = "https://github.com/sevenlabs-hq/carbon", tag = "v0.6.0" }

@@ -7,9 +7,10 @@ use carbon_pumpfun_decoder::instructions::PumpfunInstruction;
 
 pub struct PumpFunMonitor {
     pub sender: Sender<Event>,
+    pub parsed_events: Arc<RwLock<HashSet<Event>>>,
 }
 
-#[async_trait]
+#[tonic::async_trait]
 impl Processor for PumpFunMonitor {
     type InputType = InstructionProcessorInputType<PumpfunInstruction>;
 
@@ -58,17 +59,13 @@ impl Processor for PumpFunMonitor {
 
                 let (token_in_reserve, token_out_reserve) = if trade_event.is_buy {
                     (
-                        trade_event.virtual_sol_reserves as f64
-                            / 10_f64.powi(token_in_decimals as i32),
-                        trade_event.virtual_token_reserves as f64
-                            / 10_f64.powi(token_out_decimals as i32),
+                        trade_event.virtual_sol_reserves,
+                        trade_event.virtual_token_reserves,
                     )
                 } else {
                     (
-                        trade_event.virtual_token_reserves as f64
-                            / 10_f64.powi(token_in_decimals as i32),
-                        trade_event.virtual_sol_reserves as f64
-                            / 10_f64.powi(token_out_decimals as i32),
+                        trade_event.virtual_token_reserves,
+                        trade_event.virtual_sol_reserves,
                     )
                 };
 
@@ -92,13 +89,22 @@ impl Processor for PumpFunMonitor {
             }
         };
 
+        let event = Event {
+            signature,
+            event_type,
+            user,
+            timestamp: now_timestamp,
+        };
+
+        let parsed_events_cache = self.parsed_events.read().await;
+        if parsed_events_cache.contains(&event) {
+            return Ok(());
+        }
+
+        self.parsed_events.write().await.insert(event.clone());
+
         self.sender
-            .send(Event {
-                signature,
-                event_type,
-                user,
-                timestamp: now_timestamp,
-            })
+            .send(event)
             .await
             .map_err(|error| Error::Custom(format!("send pumpfun event to receiver: {}", error)))
     }
